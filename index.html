@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Anguilas y Escaleras</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <script type="text/javascript" src="classDado.js"></script>
+	<script type="text/javascript" src="classJugador.js"></script>
+	
+	<style>
+		.right{
+			background:palegreen
+		}
+
+		.wrong{
+			background: salmon;
+		}
+		.mamotreto{
+			display: none;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+	<div class="item" id="item1">
+	<div class="principal">
+
+		<h2>Anguilas Y Escaleras</h2>
+
+		<img id="ficha1" src="img/ficha1.png" alt="ficha">
+		<img id="ficha2" src="img/ficha2.png" alt="ficha">
+		<div id="ganador"></div>
+
+		<label id="r1">Posición:</label>
+		<label id="r2">Posición:</label>
+
+		<label id="p1">Jugador 1</label>
+		<button id ="btn1">Tirar</button><br>
+
+		<img id="tablero" src="img/tablero.png">
+
+		<label id="p2">Jugador 2</label>
+		<button id = "btn2">Tirar</button><br>
+
+	</div>
+	</div>
+	<center>
+	<div class="item" id="item2">
+<!--Portada-->
+<button id="btn-abrir-popup" class="btn-abrir-popup">Portada</button>
+<div class="overlay" id="overlay">
+	<div class="popup" id="popup">
+	<h4>UNIVERSIDAD AUTÓNOMA DE NUEVO LEÓN</h4>
+	<h4>FACULTAD DE ING. MECÁNICA Y ELÉCTRICA</h4>
+<h4>PENSAMIENTO CREATIVO</h4>
+<h4>MAESTRO: ENRIQUE VALDÉS PÉREZ</h4>
+<h4>JUEGO DE MESA “ANGUILAS Y ESCALERAS”</h4>
+<h4>EQUIPO 5</h4>
+<h4>Reyna Azeneth Gamboa Méndez		1753257		</h4>
+<h4>Luis Gerardo Garza Reyes		1798332			</h4>
+<h4>David Pacheco Valdez			1794049				</h4>
+<h4>Oliver Pérez Gutiérrez			1768007			</h4>
+<h4>Aaron Fernando Rosales Saucedo	1791860	</h4>
+<h4>Gustavo Adolfo Sánchez Torres	1796047	</h4>
+
+		<form action="">
+			
+			<input type="submit" class="btn-submit" value="Aceptar">
+		</form>
+	</div>
+
+</div>
+<script src="popup.js"></script>
+
+	<!--Instrucciones-->
+	
+<button type="button" onclick="mensaje('Antes de jugar este juego, favor de estudiar los temas de las habilidades del pensamiento. Para poder tirar un dado virtual, un jugador debe de contestar una pregunta de la prueba. Si un jugador contesta erróneamente o se termina el tiempo, pasa turno. Cuidado con las anguilas que si tocas en esa casilla retrocedes. El jugador que llegue a la última casilla gana. ')">Instruciones</button>
+  
+  <script>
+	function mensaje(texto) {
+	  alert(texto);
+	}
+
+  </script>
+<!--Test-->
+
+	<button class="btnIniciar" onClick="iniciarTest()">Iniciar Test</button>
+
+	<div class="mamotreto">
+	
+		<div class="question"></div>
+	
+		<button onClick="printHTMLQuestion(currentQuestionIndex)">Siguiente pregunta</button>
+	
+	
+		<p>Respuesta correcta: <span class="rightCounter">0</span></p>
+		<p>Respuesta incorrecta: <span class="wrongCounter">0</span></p>
+	
+	Tiempo
+		<span class="time">10</span>
+	 segundos
+	</div>
+		<script>
+	let rightAnswer;
+	let currentQuestionIndex = 0;
+	let rightAnswers = 0;
+	let wrongAnswers = 0;
+	let timeInterval;
+	let time = 5; 
+	
+			const cuestionary = [
+				{
+					"question": "Consiste en establecer nexos entre las cosas o las situaciones.",
+					"img": "img/Relación.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Relación", "Clasificación", "Division", "Comparación"]
+				},
+				{
+					"question": "Que actitudes tiene una persona madura",
+					"img": "img/proyecto de vida y tienen aspiraciones.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Tiene un proyecto de vida y tienen aspiraciones", "Tiene un proyecto de vida y tienen aspiraciones", "Al tomar descansos desatienden lo importante", "Cumplen sus deberes"]
+				},
+
+				{
+					"question": "Es el tipo de pensamiento que penetra lo desconocido mediante cuestionamientos organizados y equilibrados.",
+					"img": "img/Indagatorio.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Indagatorio", "Prospectivo", "Supersticioso", "Sistematico"]
+				},
+
+				{
+					"question": "Es el tipo de pensamiento que maneja los hechos en un contexto de equilibrio planetario y desarrollo sostenible.",
+					"img": "img/Ecologico.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Ecologico", "Creativo", "Emocional", "Global-local"]
+				},
+
+				{
+					"question": "¿Tipo de memoria que se asocia con el hecho de caminar, hablar, escribir, etc.?",
+					"img": "img/Destreza mental.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Destreza mental", "Rapidez", "Entusiasmo", "Problematico"]
+				},
+				{
+					"question": "¿Se define como la facultad de recordar o proceso mental para registrar y almacenar y usar información?",
+					"img": "img/La memoria.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["La memoria", "Inteligencia", "Productividad", "Agilidad"]
+				},
+				{
+					"question": "Memoria que recuerda lo que sucedió desde hace 60 min hasta 90 años",
+					"img": "img/Largo plazo.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Largo plazo", "Mediano plazo", "Corto plazo", "Sin plazo"]
+				},
+				{
+					"question": "Es un proceso mental que establece diferencias y semejanzas entre las características de dos objetos o situaciones.",
+					"img": "img/Comparación.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Comparación", "Clasificación", "Division", "Relación"]
+				},
+
+				{
+					"question": "Aprende a pensar adecuadamente logra una mente adecuada para vivir con",
+					"img": "img/Madurez.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Madurez", "Liderazgo", "Éxito", "Creatividad"]
+				},
+
+				{
+					"question": "Es cuando estés convencido de que lo que vas a aprender: ",
+					"img": "img/Motivación.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Motivación", "Analizar", "Dominio", "Conocimiento"]
+				},
+				{
+					"question": "Se recopilan ideas fundamentales, pero con la intención de integrar una estructura completa en varios aspectos:",
+					"img": "img/Supernotas.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Supernotas", "Apuntes", "Lluvia de ideas.", "Mapa conceptual."]
+				},
+				{
+					"question": "Estrategia esquemática que se compone de proposiciones o enunciados formados por conceptos y palabras enlace",
+					"img": "img/Mapa conceptual.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Mapa conceptual", "Cuadro sinóptico.", "Cuadro sinóptico", "Mapa Lluvia de ideas"]
+				},
+				{
+					"question": "¿Tipo de memoria que registra los sentimientos, pensamiento, emociones y expresiones particulares?",
+					"img": "img/Personal.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Personal", "General", "Simple", "De lupa"]
+				},
+				{
+					"question": "Son representaciones gráficas radiales basadas en la alegoría de un árbol visto desde su cenit:",
+					"img": "img/Mapa mental.png",
+					"audio": "/res/blog-material/trivial/audio/america.mp3",
+					"answers": ["Mapa mental.", "Mapa mental.", "Lluvia de ideas.", "De Cuadro sinóptico."]
+				},
+			];
+	
+	
+			const printHTMLQuestion = (i) => {
+				currentQuestionIndex++;
+				const q = cuestionary[i];
+				let a = q.answers;
+				rightAnswer = a[0];
+				a = a.sort((a,b) => Math.floor(Math.random() * 2) -1);
+	
+	
+				let audio = new Audio(q.audio);
+				audio.play();
+				
+				const htmlAnswersArray = a.map( currentA => `<p class="answer"><button onClick="evaluateAnswer('${currentA}', this)">X</button> <span>${currentA}</span></p>`);
+				const htmlAnswers = htmlAnswersArray.join(' ');
+	
+	
+					let htmlQuestionCode = `<p>${q.question}</p><img src="${q.img}"/><div>${htmlAnswers}</div>`;
+				document.querySelector('.question').innerHTML = htmlQuestionCode;
+	
+				time = 10;
+				document.querySelector('.time').innerHTML = time;
+				clearInterval(timeInterval);
+				timeInterval = setInterval( ()=> {
+					time--;
+					if(time == 0){
+						alert("Se termino el tiempo");
+						clearInterval(timeInterval);
+	
+					}else{
+						document.querySelector('.time').innerHTML = time;
+					}
+				},1000)
+	
+			}
+	
+			const evaluateAnswer = (answer, obj )=>{
+				document.querySelectorAll('.answer').forEach( a => a.classList.remove('right', 'wrong'));
+	
+				const parentP = obj.parentNode;
+	
+				console.log('answer:  ' + answer + ', rightAnswer: ' + rightAnswer)
+				if(answer == rightAnswer){
+					parentP.classList.add('right');
+					rightAnswers++;
+					document.querySelector('.rightCounter').innerHTML = rightAnswers;
+				}else{
+					parentP.classList.add('wrong');
+					wrongAnswers++;
+					document.querySelector('.wrongCounter').innerHTML = wrongAnswers;
+				}
+			}
+	
+			const nextQuestion = _ => {
+	
+			}
+	
+			const iniciarTest = _ =>{
+				printHTMLQuestion(0);
+				document.querySelector('.btnIniciar').style.display = 'none';
+				document.querySelector('.mamotreto').style.display = 'block';
+	
+			}
+		</script>
+
+</center>
+
+</div>
+</div>
+
+</body>
+<script type="text/javascript" src="controlador.js"></script>
+
+</html>
